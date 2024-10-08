@@ -1,2 +1,9 @@
-FROM alpine:3.18
+FROM debian:11.11
+
+RUN apt update && apt upgrade -y && apt install -y \
+	nginx
+
+COPY nginx.conf /etc/nginx/sites-available/.
+
+CMD ["nginx", "-g", "daemon off;"]
 
