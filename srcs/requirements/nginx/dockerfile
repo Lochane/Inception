@@ -1,9 +1,30 @@
 FROM debian:11.11
 
-RUN apt update && apt upgrade -y && apt install -y \
-	nginx
+# Installer Nginx et OpenSSL
+RUN apt update && apt install -y \
+    nginx \
+    openssl \
+    && apt clean \
+    && rm -rf /var/lib/apt/lists/*
 
-COPY nginx.conf /etc/nginx/sites-available/.
+# Créer le répertoire pour les certificats SSL
+RUN mkdir -p /etc/nginx/ssl
 
+# Générer un certificat SSL auto-signé
+RUN openssl req -newkey rsa:2048 -nodes -keyout /etc/nginx/ssl/server.key \
+    -x509 -days 365 -out /etc/nginx/ssl/server.crt \
+    -subj "/C=FR/ST=Region/L=City/O=Company/OU=Org/CN=lsouquie.42.fr"
+
+# Changer les permissions du répertoire HTML
+RUN chown -R www-data:www-data /var/www/html \
+    && chmod -R 755 /var/www/html
+
+# Copier la configuration Nginx
+COPY nginx.conf /etc/nginx/sites-available/
+
+# Exposer le port 443 pour HTTPS
+EXPOSE 443
+
+# Démarrer Nginx
 CMD ["nginx", "-g", "daemon off;"]
 
