@@ -13,7 +13,7 @@ COPY setup.sh /setup.sh
 
 RUN chmod 644 /etc/php/7.4/fpm/pool.d/wp.conf
 
-RUN sed -i 's|listen = /run/php/php7.4-fpm.sock|listen = 9000|' /etc/php/7.4/fpm/pool.d/wp.conf
+# RUN sed -i 'listen = 0.0.0.0:9000|' /etc/php/7.4/fpm/pool.d/wp.conf
 
 RUN mkdir -p /run/php
 
