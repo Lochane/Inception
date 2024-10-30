@@ -9,10 +9,14 @@ RUN rm /etc/php/7.4/fpm/pool.d/*.conf
 
 COPY wp.conf /etc/php/7.4/fpm/pool.d/.
 
+COPY setup.sh /setup.sh
+
+RUN chmod 644 /etc/php/7.4/fpm/pool.d/wp.conf
+
 RUN sed -i 's|listen = /run/php/php7.4-fpm.sock|listen = 9000|' /etc/php/7.4/fpm/pool.d/wp.conf
 
 RUN mkdir -p /run/php
 
-CMD ["php-fpm7.4", "-F"]
+CMD ["/setup.sh"]
 
 # CMD tail -f /dev/null

@@ -1,0 +1,5 @@
+MDP : vagrant
+
+sudo usermod -a -G vboxsf lsouquie
+sudo snap install --classic code
+cd ../../media/sf_Inception/
