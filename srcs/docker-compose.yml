@@ -5,7 +5,7 @@ services:
     ports:
       - "443:443"
     volumes:
-      - /home/lsouquie/volumes:/var/www/html
+      - /media/volumes:/var/www/html
     depends_on:
       - wordpress
 
@@ -14,4 +14,8 @@ services:
     build: requirements/wordpress/.
     container_name: wp-php
     volumes:
-      - /home/lsouquie/volumes:/var/www/html
+      - /media/volumes:/var/www/html
+
+  mariadb:
+    build: requirements/mariadb/.
+    container_name: mariadb
