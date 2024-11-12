@@ -1,4 +1,9 @@
 CREATE DATABASE wordpress;
+<<<<<<< HEAD
+CREATE USER 'wpuser'@'%' IDENTIFIED BY 'wp_password';
+GRANT ALL PRIVILEGES ON *.* TO 'wp_user'@'%' WITH GRANT OPTION;
+=======
 CREATE USER 'wpuser'@'%' IDENTIFIED BY 'password';
 GRANT ALL PRIVILEGES ON *.* TO 'wpuser'@'%' WITH GRANT OPTION;
+>>>>>>> 6a88fb7a33647dc41da42d8da47aa161501229dc
 FLUSH PRIVILEGES;

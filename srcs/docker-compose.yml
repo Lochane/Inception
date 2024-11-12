@@ -5,17 +5,42 @@ services:
     ports:
       - "443:443"
     volumes:
+<<<<<<< HEAD
+      - ./web:/var/www/html
+=======
       - /media/volumes:/var/www/html
+>>>>>>> 6a88fb7a33647dc41da42d8da47aa161501229dc
     depends_on:
       - wordpress
+      - mariadb
+    networks:
+      inception:
 
   
   wordpress:
     build: requirements/wordpress/.
     container_name: wp-php
+    depends_on:
+      - mariadb
     volumes:
+<<<<<<< HEAD
+      - ./web:/var/www/html
+    networks:
+      inception:
+=======
       - /media/volumes:/var/www/html
+>>>>>>> 6a88fb7a33647dc41da42d8da47aa161501229dc
 
   mariadb:
     build: requirements/mariadb/.
     container_name: mariadb
+<<<<<<< HEAD
+    volumes:
+      - ./database:/var/lib/mysql
+    networks:
+      inception:
+
+networks:
+  inception:
+=======
+>>>>>>> 6a88fb7a33647dc41da42d8da47aa161501229dc

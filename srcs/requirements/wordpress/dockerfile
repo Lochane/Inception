@@ -3,16 +3,23 @@ FROM debian:11.11
 RUN apt update && apt install -y \
     php php-fpm \
     php-mysqli \
+<<<<<<< HEAD
+    curl \
+=======
+>>>>>>> 6a88fb7a33647dc41da42d8da47aa161501229dc
     && apt clean \
     && rm -rf /var/lib/apt/lists/*
 
 RUN rm /etc/php/7.4/fpm/pool.d/*.conf
 
 COPY wp.conf /etc/php/7.4/fpm/pool.d/.
-
 COPY setup.sh /setup.sh
 
+<<<<<<< HEAD
+# RUN chmod +x /setup.sh
+=======
 RUN chmod +x /setup.sh
+>>>>>>> 6a88fb7a33647dc41da42d8da47aa161501229dc
 
 RUN chmod 644 /etc/php/7.4/fpm/pool.d/wp.conf
 
