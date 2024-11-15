@@ -21,8 +21,8 @@
 // ** Database settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
 define('DB_NAME', 'wordpress');
-define('DB_USER', 'wp_user');
-define('DB_PASSWORD', 'wp_password');
+define('DB_USER', 'wpuser');
+define('DB_PASSWORD', 'password');
 define('DB_HOST', 'mariadb');
 
 /** Database charset to use in creating database tables. */

@@ -14,11 +14,7 @@ init_file = /etc/mysql/init.sql
 # * Basic Settings
 #
 
-<<<<<<< HEAD
-user                    = wpuser ?
-=======
 user                    = root
->>>>>>> 6a88fb7a33647dc41da42d8da47aa161501229dc
 pid-file                = /run/mysqld/mysqld.pid
 basedir                 = /usr
 datadir                 = /var/lib/mysql
@@ -33,11 +29,7 @@ skip-external-locking
 
 # Instead of skip-networking the default is now to listen only on
 # localhost which is more compatible and is not less secure.
-<<<<<<< HEAD
-# bind-address            = mariadb
-=======
-bind-address            = mariadb
->>>>>>> 6a88fb7a33647dc41da42d8da47aa161501229dc
+bind-address            = 0.0.0.0
 
 #
 # * Fine Tuning
