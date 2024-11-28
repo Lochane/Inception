@@ -21,6 +21,7 @@ if ! $(wp-cli.phar core is-installed --allow-root --path='/var/www/wordpress'); 
   ./wp-cli.phar core install --path=/var/www/html/. --url=$DOMAIN_NAME --title=$WORDPRESS_TITLE \
   --admin_user=$WORDPRESS_ADMIN_USER --admin_password=$WORDPRESS_ADMIN_PASSWORD \ 
   --admin_email=$WORDPRESS_ADMIN_EMAIL --allow-root
+  ./wp-cli.phar config create --dbname=wordpress --dbuser=wpuser --dbpass=password --dbhost=mariadb --allow-root
   ./wp-cli.phar user create --path=/var/www/html/. $WORDPRESS_USER $WORDPRESS_USER_EMAIL \ 
   --role=author --user_pass=$WORDPRESS_USER_PASSWORD --allow-root
 fi
