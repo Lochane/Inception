@@ -17,11 +17,12 @@ if [ ! -d /var/www/html/wp-admin ]; then
   ./wp-cli.phar core download --path=/var/www/html/. --allow-root
 fi
 
-if [ ! -f /var/www/html/wp-config.php ]; then
-  ./wp-cli.phar config create --path=/var/www/html/. --dbname=wordpress --dbuser=wpuser --dbpass=password --dbhost=mariadb --allow-root
+if ! $(wp-cli.phar core is-installed --allow-root --path='/var/www/wordpress'); then
+  ./wp-cli.phar core install --path=/var/www/html/. --url=$DOMAIN_NAME --title=$WORDPRESS_TITLE \
+  --admin_user=$WORDPRESS_ADMIN_USER --admin_password=$WORDPRESS_ADMIN_PASSWORD \ 
+  --admin_email=$WORDPRESS_ADMIN_EMAIL --allow-root
+  ./wp-cli.phar user create --path=/var/www/html/. $WORDPRESS_USER $WORDPRESS_USER_EMAIL \ 
+  --role=author --user_pass=$WORDPRESS_USER_PASSWORD --allow-root
 fi
-
-./wp-cli.phar core install --path=/var/www/html/. --url=lsouquie.42.fr --title=inception --admin_user=admin --admin_password=admin --admin_email=admin@admin.com --allow-root
-
 # Lancer php-fpm
 exec php-fpm7.4 -F
