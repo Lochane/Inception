@@ -14,13 +14,11 @@ if ! pgrep -x "mysqld" > /dev/null; then
 fi
 
 # Création de la base de données et de l'utilisateur via la commande mysql
-echo "Création de la base de données et de l'utilisateur..."
-mysql -u root <<-EOSQL
-CREATE DATABASE IF NOT EXISTS wordpress;
-CREATE USER IF NOT EXISTS 'wpuser'@'%' IDENTIFIED BY 'password';
-GRANT ALL PRIVILEGES ON wordpress.* TO 'wpuser'@'%';
+mysql -u root -p <<EOF
+CREATE USER '${DB_USER}'@'%' IDENTIFIED BY '${DB_PASS}';
+GRANT ALL PRIVILEGES ON *.* TO '${DB_USER}'@'%';
 FLUSH PRIVILEGES;
-EOSQL
+EOF
 
 # Vérification de l'état de MariaDB
 if [ $? -eq 0 ]; then
