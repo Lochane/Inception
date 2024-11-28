@@ -1,6 +1,7 @@
 services:
   nginx:
     build: requirements/nginx/.
+    env_file: .env
     container_name: nginx
     ports:
       - "443:443"
@@ -15,6 +16,7 @@ services:
   
   wordpress:
     build: requirements/wordpress/.
+    env_file: .env
     container_name: wp-php
     depends_on:
       - mariadb
@@ -25,6 +27,7 @@ services:
 
   mariadb:
     build: requirements/mariadb/.
+    env_file: .env
     container_name: mariadb
     volumes:
       - db_data:/var/lib/mysql
