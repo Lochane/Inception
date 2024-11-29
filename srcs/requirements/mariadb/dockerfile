@@ -3,11 +3,10 @@ FROM debian:11.11
 RUN apt update && apt upgrade -y && apt install -y mariadb-server
 
 COPY mariadb.cnf /etc/mysql/
-COPY init.sql /etc/mysql/init.sql
 COPY setup.sh /setup.sh
 
 RUN sed "s/^bind/#bind/" -i /etc/mysql/mariadb.conf.d/50-server.cnf
 
-RUN mkdir -p /run/mysqld && chown -R mysql:mysql /run/mysqld && chmod +x /setup.sh
+RUN chmod +x /setup.sh
 
 CMD ["./setup.sh"]
