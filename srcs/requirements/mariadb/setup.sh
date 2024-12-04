@@ -1,56 +1,16 @@
 #!/bin/bash
 
-set -x
-
-chown mysql:mysql /var/lib/mysql
-chmod 755 /var/lib/mysql
+# Initialisation de la base de données
+mysql_install_db --user=mysql --datadir=/var/lib/mysql
 
 chown mysql:mysql /etc/mysql/init.sql
-chmod 644 /etc/mysql/init.sql
+chmod 600 /etc/mysql/init.sql
 
-mkdir -p /run/mysqld 
-chown -R mysql:mysql /run/mysqld
-chmod 755 /run/mysqld
-
-
-if ! ls /var/lib/mysql | grep ".*"  > /dev/null
-then
-    echo Installing Databases
-    mariadb-install-db --datadir=/var/lib/mysql
-    chown -R mysql:mysql /var/lib/mysql
+# Démarre mysqld en premier plan et applique le fichier init.sql si présent
+if [ -f /etc/mysql/init.sql ]; then
+    exec mysqld --init-file=/etc/mysql/init.sql --user=mysql --datadir='/var/lib/mysql'
+    echo "launched mariadb with init file" > /check_mariadb/
 else
-    echo Databases already installed
+    exec mysqld --user=mysql --datadir='/var/lib/mysql'
+    echo "launched mariadb without init file" > /check_mariadb/
 fi
-
-if [ -z "$DB_ROOT_PASS" ] || [ -z "$DB_NAME" ] || [ -z "$DB_USER" ] || [ -z "$DB_PASS" ]; then
-    echo "ERROR: Required environment variables are not set."
-    exit 1
-fi
-
-mysqld --user=mysql &
-PID=$!
-
-# Attente que MariaDB soit prêt
-while [ ! -e /run/mysqld/mysqld.sock ]
-do
-    sleep 2
-done
-
-echo "FLUSH PRIVILEGES;" > /var/lib/mysql/init.sql
-echo "SET PASSWORD FOR 'root'@'localhost' = PASSWORD('${DB_ROOT_PASS}');" >> /var/lib/mysql/init.sql
-echo "CREATE DATABASE ${DB_NAME};" >> /var/lib/mysql/init.sql
-echo "CREATE USER '${DB_USER}'@'%' IDENTIFIED BY '${DB_PASS}';" >> /var/lib/mysql/init.sql
-echo "GRANT ALL PRIVILEGES ON ${DB_NAME}.* TO '${DB_USER}'@'%';" >> /var/lib/mysql/init.sql
-
-
-chown mysql:mysql /var/lib/mysql/init.sql
-chmod 644 /var/lib/mysql/init.sql
-
-mysql < /var/lib/mysql/init.sql
-
-kill -9 $PID
-wait $PID
-
-exec mysqld --user=mysql
-
-# /usr/bin/mysqld --user=mysql --console --skip-name-resolve --skip-networking=0
