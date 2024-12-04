@@ -29,7 +29,9 @@ all:
 
 # Construction des images Docker
 build:
-			$(DOCKER_COMPOSE) build
+		mkdir -p $(HOME)/data/database
+		mkdir -p $(HOME)/data/web
+		$(DOCKER_COMPOSE) build
 
 # Création des conteneurs sans les démarrer
 create:
@@ -46,7 +48,6 @@ clean:
 # Nettoyage complet (conteneurs, images, volumes)
 fclean:
 			$(DOCKER_COMPOSE) down --rmi all --volumes --remove-orphans
-			sudo rm -rf ./srcs/web
-			sudo rm -rf ./srcs/database
+			sudo rm -rf $(HOME)/data
 # Pour relancer tout à zéro
 re: fclean all
