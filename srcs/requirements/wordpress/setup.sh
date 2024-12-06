@@ -45,6 +45,8 @@ sleep 1
 
 sleep 1
 
+./wp-cli.phar theme install twentytwentyfour --activate --path=/var/www/html --allow-root
+
 # Créer un utilisateur supplémentaire
 ./wp-cli.phar user create \
     "$WORDPRESS_USER" "$WORDPRESS_USER_EMAIL" \
@@ -54,6 +56,9 @@ sleep 1
     --path=/var/www/html
 
 sleep 1
+
+./wp-cli.phar media import /chemin/vers/limage.jpg --path=/var/www/html --featured_image --allow-root
+
 
 chown -R www-data:www-data /var/www/html
 chmod -R 755 /var/www/html

@@ -1,10 +1,14 @@
 FROM debian:11.11
 
 RUN apt update && apt install -y \
-    php php-fpm \
+    php php-fpm wget \
+    mariadb-client php7.4-fpm \
+    php7.4-gd php7.4-mbstring php7.4-zip \
+    php7.4-intl php7.4-curl \
     php-mysqli \
     php7.4-mysql \
     php7.4-xml \
+    php-imagick \
     curl \
     && apt clean \
     && rm -rf /var/lib/apt/lists/*
