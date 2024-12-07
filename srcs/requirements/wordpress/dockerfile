@@ -18,14 +18,9 @@ RUN rm /etc/php/7.4/fpm/pool.d/*.conf
 COPY wp.conf /etc/php/7.4/fpm/pool.d/.
 COPY setup.sh /setup.sh
 
-# RUN chmod +x /setup.sh
 
 RUN chmod 644 /etc/php/7.4/fpm/pool.d/wp.conf
-
-# RUN sed -i 'listen = 0.0.0.0:9000|' /etc/php/7.4/fpm/pool.d/wp.conf
 
 RUN mkdir -p /run/php
 
 CMD ["/setup.sh"]
-
-# CMD tail -f /dev/null

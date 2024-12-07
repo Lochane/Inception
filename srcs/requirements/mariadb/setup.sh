@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -x
-
 chown mysql:mysql /var/lib/mysql
 chmod 755 /var/lib/mysql
 
@@ -52,5 +50,3 @@ kill -9 $PID
 wait $PID
 
 exec mysqld --user=mysql
-
-# /usr/bin/mysqld --user=mysql --console --skip-name-resolve --skip-networking=0
