@@ -3,9 +3,6 @@
 chown mysql:mysql /var/lib/mysql
 chmod 755 /var/lib/mysql
 
-chown mysql:mysql /etc/mysql/init.sql
-chmod 644 /etc/mysql/init.sql
-
 mkdir -p /run/mysqld 
 chown -R mysql:mysql /run/mysqld
 chmod 755 /run/mysqld
@@ -18,11 +15,6 @@ then
     chown -R mysql:mysql /var/lib/mysql
 else
     echo Databases already installed
-fi
-
-if [ -z "$DB_ROOT_PASS" ] || [ -z "$DB_NAME" ] || [ -z "$DB_USER" ] || [ -z "$DB_PASS" ]; then
-    echo "ERROR: Required environment variables are not set."
-    exit 1
 fi
 
 mysqld --user=mysql &

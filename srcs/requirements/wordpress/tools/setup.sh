@@ -57,8 +57,6 @@ sleep 1
 
 sleep 1
 
-./wp-cli.phar media import /chemin/vers/limage.jpg --path=/var/www/html --featured_image --allow-root
-
 
 chown -R www-data:www-data /var/www/html
 chmod -R 755 /var/www/html
