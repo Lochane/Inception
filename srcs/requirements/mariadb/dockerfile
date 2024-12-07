@@ -9,4 +9,4 @@ RUN sed "s/^bind/#bind/" -i /etc/mysql/mariadb.conf.d/50-server.cnf
 
 RUN chmod +x /setup.sh
 
-CMD ["./tools/setup.sh"]
+CMD ["./setup.sh"]
