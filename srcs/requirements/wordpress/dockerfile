@@ -15,12 +15,11 @@ RUN apt update && apt install -y \
 
 RUN rm /etc/php/7.4/fpm/pool.d/*.conf
 
-COPY wp.conf /etc/php/7.4/fpm/pool.d/.
-COPY setup.sh /setup.sh
-
+COPY conf/wp.conf /etc/php/7.4/fpm/pool.d/.
+COPY tools/setup.sh /setup.sh
 
 RUN chmod 644 /etc/php/7.4/fpm/pool.d/wp.conf
 
 RUN mkdir -p /run/php
 
-CMD ["/setup.sh"]
+CMD ["./setup.sh"]
